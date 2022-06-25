@@ -18,7 +18,17 @@ pipeline {
                 echo 'build complete'
             }
         }
+        stage ('Code Quality') {
+            steps {
+                echo 'testing code quality'
+               sh "mvn clean verify sonar:sonar \
+                        -Dsonar.projectKey=DevOpsProject \
+                        -Dsonar.host.url=http://192.168.254.136:9000 \
+                        -Dsonar.login=52dfa1c9b53371b2e2002809878f6be36bc1238c"
 
+                echo 'Quality Test Complete'
+            }        
+        } 
         stage ("image build") {
             steps {
                 echo 'building docker image'

@@ -38,12 +38,12 @@ pipeline {
         }
         stage ('Image Push') {
             steps {
-                sh "docker push 192.168.254.136:8082/docker-images/position-simulator:${commit_id}"
+                sh "docker push 192.168.254.136:8082/position-simulator:${commit_id}"
             }
         }
         stage('deploy') {
             steps {
-                sh "sed -i -r 's|richardchesterwood/k8s-fleetman-position-simulator:release2|192.168.254.136:8082/docker-images/position-simulator:${commit_id}|' workloads.yaml"
+                sh "sed -i -r 's|richardchesterwood/k8s-fleetman-position-simulator:release2|192.168.254.136:8082/position-simulator:${commit_id}|' workloads.yaml"
                 sh 'kubectl apply -f workloads.yaml'
             }
         }

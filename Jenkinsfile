@@ -11,13 +11,6 @@ pipeline {
                 }
             }
         }
-        stage ('build') {
-            steps {
-                echo 'building maven workload'
-                sh "mvn clean install"
-                echo 'build complete'
-            }
-        }
         stage ('Code Quality') {
             steps {
                 echo 'testing code quality'
@@ -29,6 +22,13 @@ pipeline {
                 echo 'Quality Test Complete'
             }        
         } 
+        stage ('build') {
+            steps {
+                echo 'building maven workload'
+                sh "mvn clean install"
+                echo 'build complete'
+            }
+        }
         stage ("image build") {
             steps {
                 echo 'building docker image'
